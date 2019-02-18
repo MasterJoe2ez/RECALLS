@@ -1,0 +1,93 @@
+<td-layout #layout>
+
+  <td-navigation-drawer name="{{user.displayName}}" email="{{user.email}}">
+    <mat-nav-list>
+      <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+        <a mat-list-item [routerLink]="[item.route]" (click)="layout.close()">
+          <mat-icon>{{item.icon}}</mat-icon>
+          {{item.title}}</a>
+      </ng-template>
+    </mat-nav-list>
+    <mat-nav-list td-navigation-drawer-menu>
+      <a mat-list-item (click)="openSetting()">
+        <mat-icon>tune</mat-icon>
+        Account settings</a>
+      <a mat-list-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Sign out</a>
+    </mat-nav-list>
+  </td-navigation-drawer>
+
+  <td-layout-nav [color]="'primary'">
+    <div td-toolbar-content layout="row" layout-align="start center" flex>
+      <button mat-icon-button td-menu-button tdLayoutToggle>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <!--<mat-icon *ngIf="(_media.registerQuery('gt-lg') | async)" class="mat-icon-logo cursor-pointer" (click)="refresh()"-->
+      <!--svgIcon="assets:logo"></mat-icon>-->
+      <span>ReCall</span>
+      <p class="version">version {{appVersion}}</p>
+      <span flex></span>
+
+      <!--<button mat-button [matMenuTriggerFor]="menu">-->
+        <!--<div fxLayout="row">-->
+          <!--<div *ngIf="lang === 'en'">English</div>-->
+          <!--<div *ngIf="lang === 'th'" >ภาษาไทย</div>-->
+          <!--<div *ngIf="lang === 'ko'" >Korean</div>-->
+          <!--<mat-icon style="line-height: 35px; margin-left: 5px;">arrow_drop_down</mat-icon>-->
+        <!--</div>-->
+      <!--</button>-->
+      <!--<mat-menu #menu="matMenu">-->
+        <!--<button mat-menu-item (click)="selectLanguage('en');">-->
+          <!--English-->
+        <!--</button>-->
+        <!--<button mat-menu-item (click)="selectLanguage('th');">-->
+          <!--ภาษาไทย-->
+        <!--</button>-->
+        <!--<button mat-menu-item disabled (click)="selectLanguage('ko');">-->
+          <!--Korean-->
+        <!--</button>-->
+      <!--</mat-menu>-->
+
+      <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #settingsMenu="matMenu" [overlapTrigger]="false">
+        <td-menu style="width: 250px;">
+          <div td-menu-header class="mat-subhead">Setup</div>
+          <mat-nav-list dense>
+            <!--<ng-template let-last="last" ngFor [ngForOf]="[0,1,2,3,4,5,6,7,8,9]">-->
+            <a mat-list-item (click)="openUsersettingDialog()">
+              <h4 mat-line><span class="text-wrap">User</span>
+              </h4>
+            </a>
+            <a mat-list-item (click)="openSetpriceDialog()">
+              <h4 mat-line><span class="text-wrap">Set Price</span>
+              </h4>
+            </a>
+            <a mat-list-item (click)="openChartDialog()">
+              <h4 mat-line><span class="text-wrap">Chart</span>
+              </h4>
+            </a>
+            <!--<mat-divider *ngIf="!last"></mat-divider>-->
+            <!--</ng-template>-->
+          </mat-nav-list>
+        </td-menu>
+      </mat-menu>
+
+
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </td-layout-nav>
+
+<!--
+  <nav mat-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
+    <a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
+       routerLinkActive="">{{ 'Home'}}</a>
+    <a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>
+  </nav>
+-->
+
+</td-layout>
